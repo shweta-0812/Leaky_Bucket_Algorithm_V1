@@ -43,3 +43,32 @@
 - pydantic: For type handling in code
 - flake8: to ensure code quality
 - setuptools: for redis client
+
+
+#### How to run:
+1.Go to the project directory and make sure to run `poetry init` to initialise poetry and setup a python virtual env using `pyenv` module to install `python 3.12.3`.
+
+2. Open 3 terminal windows and go to the project.
+
+3. Run `poetry shell` to activate the virtual env for first and second window.
+
+4. Run `poetry install` in first and second window.
+
+5. In first window start the FastAPI server by running `uvicorn main:app --reload`.
+
+6. In second window run the consumer by running `python3 consumer.py`.
+
+7. In third window run the redis server by running `redis-server`.
+
+8. Finally, make the curl request and test the flow: 
+
+`curl --location 'http://127.0.0.1:8000/enqueue' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: csrftoken=WKe0Shk1UUGp7JCrW8Cx6twOv84iTYVS' \
+--data '{
+        "id": 1,
+    "job_priority": 1,
+    "job_type": 2,
+    "job_publisher": "mobile_app",
+    "data": "this is my messasge from mobile app"
+}'`
