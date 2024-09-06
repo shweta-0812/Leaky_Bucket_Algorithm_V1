@@ -1,4 +1,14 @@
-### Problem Statement:
+### Overview of the Leaky Bucket Algorithm
+The Leaky Bucket algorithm works by imagining a bucket with a small hole at the bottom. The bucket can hold a finite amount of water (messages), and water leaks out of the hole at a constant rate. Here’s how it applies to message queues:
+
+#### Bucket Capacity:
+The bucket has a fixed size, which represents the maximum number of messages (or requests) that can be held at any given time. If the bucket is full and a new message arrives, the message is dropped (or rejected).
+
+#### Constant Leak Rate:
+Messages are processed (or leaked out) of the bucket at a constant rate. This ensures a steady flow of message processing and prevents bursts from overwhelming the system.
+
+#### Incoming Messages:
+New messages (or requests) are added to the bucket. If there is room in the bucket, they are enqueued; otherwise, they are discarded.
 
 ### Let's break down the implementation into several steps:
 
