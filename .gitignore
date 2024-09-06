@@ -1,4 +1,11 @@
 .idea
-.env
+
 __pycache__/
 .venv/
+
+examples/leaky_bucket_algo/.env
+examples/thread_pool_executor/.env
+
+
+dump.rdb
+./examples/leaky_bucket_algo/dump.rdb

@@ -1,7 +1,9 @@
 import redis
 import asyncio
 import time
+from typing import Dict
 import json
+import argparse
 from concurrent.futures import ThreadPoolExecutor
 from object_schema import JobSchema, JobType
 
@@ -20,7 +22,7 @@ redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=Tr
 executor = ThreadPoolExecutor(max_workers=5)
 
 
-async def async_worker(data):
+async def async_worker(data: Dict):
     """
     Process an I/O-bound task asynchronously.
     """
@@ -71,6 +73,7 @@ async def dispatch_job(job: JobSchema):
     if job_type == JobType.IO_BASED.value:
         await async_worker(data)
     elif job_type == JobType.CPU_BASED.value:
+        # run sync and async task concurrently in separate threads for better CPU utilization
         # Submit the sync task to the ThreadPoolExecutor
         await asyncio.get_event_loop().run_in_executor(executor, sync_worker, data)
     else:
@@ -90,6 +93,11 @@ async def consumer():
     """
     Long-running consumer process to consume messages from the Redis queue.
     """
+
+    parser = argparse.ArgumentParser(description='Consumer for processing jobs')
+    # parser.add_argument('--leak_rate', type=float, default=5, help='Leak rate for processing jobs')
+    args = parser.parse_args()
+
     while True:
         # Check if there are messages in the queue
         message = redis_client.lpop(QUEUE_NAME)
