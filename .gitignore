@@ -5,7 +5,9 @@ __pycache__/
 
 examples/leaky_bucket_algo/.env
 examples/thread_pool_executor/.env
+examples/leaky_bucket_algo_v2/.env
 
 
 dump.rdb
-./examples/leaky_bucket_algo/dump.rdb
+examples/leaky_bucket_algo/dump.rdb
+examples/leaky_bucket_algo_v2/dump.rdb

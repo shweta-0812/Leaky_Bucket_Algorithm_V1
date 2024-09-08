@@ -5,7 +5,7 @@ from typing import Dict
 import json
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-from object_schema import JobSchema, JobType
+from object_schema import JobSchema, JobTypeEnum
 
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
@@ -70,9 +70,9 @@ async def dispatch_job(job: JobSchema):
     job_type = job["job_type"]
     data = job["data"]
 
-    if job_type == JobType.IO_BASED.value:
+    if job_type == JobTypeEnum.IO_BASED.value:
         await async_worker(data)
-    elif job_type == JobType.CPU_BASED.value:
+    elif job_type == JobTypeEnum.CPU_BASED.value:
         # run sync and async task concurrently in separate threads for better CPU utilization
         # Submit the sync task to the ThreadPoolExecutor
         await asyncio.get_event_loop().run_in_executor(executor, sync_worker, data)

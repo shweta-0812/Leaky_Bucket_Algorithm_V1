@@ -60,19 +60,21 @@ New messages (or requests) are added to the bucket. If there is room in the buck
 #### How to run:
 1.Go to the project directory and make sure to run `poetry init` to initialise poetry and setup a python virtual env using `pyenv` module to install `python 3.12.3`.
 
-2. Open 3 terminal windows and go to the project.
+2. Rename `sample.env` to `.env` and update the values accordingly.
 
-3. Run `poetry shell` to activate the virtual env for first and second window.
+3. Open 3 terminal windows and go to the project.
 
-4. Run `poetry install` in first and second window.
+4. Run `poetry shell` to activate the virtual env for first and second window.
 
-5. In first window, go to `examples/leaky_bucket_algo` and start the FastAPI server by running `uvicorn main:app --reload`.
+5. Run `poetry install` in first and second window.
 
-6. In second window go to `examples/leaky_bucket_algo` and run the consumer by running `python3 consumer.py`.
+6. In first window, go to `examples/leaky_bucket_algo` and start the FastAPI server by running `uvicorn main:app --reload`.
 
-7. In third window run the redis server by running `redis-server`.
+7. In second window go to `examples/leaky_bucket_algo` and run the consumer by running `python3 consumer.py`.
 
-8. Finally, make the curl request and test the flow: 
+8. In third window run the redis server by running `redis-server`.
+
+9. Finally, make the curl request and test the flow: 
 
 `curl --location 'http://127.0.0.1:8000/enqueue' \
 --header 'Content-Type: application/json' \
